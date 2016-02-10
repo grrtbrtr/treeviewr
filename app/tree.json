@@ -1,0 +1,49 @@
+{
+	"treenodes": [
+		{
+			"name": "Process",
+			"children": [
+				{
+					"name": "Project",
+					"children": [
+						{
+							"name": "Campaign"
+						},
+						{
+							"name": "Product launch"
+						},
+						{
+							"name": "Create creation"
+						}
+					]
+				},
+				{
+					"name": "Content creation"
+				},
+				{
+					"name": "Content usage"
+				}
+			]
+		},
+		{
+			"name": "Record",
+			"children": [
+			]
+		},
+		{
+			"name": "File container",
+			"children": [
+			]
+		},
+		{
+			"name": "User",
+			"children": [
+			]
+		},
+		{
+			"name": "User group",
+			"children": [
+			]
+		}
+	]
+}
