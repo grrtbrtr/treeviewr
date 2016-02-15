@@ -1,25 +1,15 @@
 // bower:scss
 // endbower
 
+html,
 body {
-  background: #fafafa;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  color: #333;
-}
-
-table {
-  border: {
-    collapse: collapse;
-    spacing: 0;
-  }
-}
-
-table, tr, th, td {
   margin: 0;
   padding: 0;
+  height: 100%;
 }
 
-th, td {
-  border: 1px solid #97999B;
+#treeviewr {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
 }
-

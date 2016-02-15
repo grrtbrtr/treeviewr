@@ -1,5 +1,5 @@
 {
-	"treenodes": [
+	"nodes": [
 		{
 			"name": "Process",
 			"children": [
@@ -49,24 +49,10 @@
 					]
 				},
 				{
-					"name": "File container",
-					"children": [
-						{
-							"name": "PDF"
-						},
-						{
-							"name": "PSD"
-						},
-						{
-							"name": "Office document"
-						}
-					]
-				},
-				{
 					"name": "Collection",
 					"children": [
 						{
-							"name": "Collection"
+							"name": "Photoshoot"
 						},
 						{
 							"name": "Catalog"
@@ -81,6 +67,15 @@
 		{
 			"name": "File container",
 			"children": [
+				{
+					"name": "PDF"
+				},
+				{
+					"name": "PSD"
+				},
+				{
+					"name": "Office document"
+				}
 			]
 		},
 		{
