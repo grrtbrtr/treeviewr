@@ -13,7 +13,7 @@
 							"name": "Product launch"
 						},
 						{
-							"name": "Create creation"
+							"name": "Creative creation"
 						}
 					]
 				},
@@ -28,6 +28,54 @@
 		{
 			"name": "Record",
 			"children": [
+				{
+					"name": "Asset",
+					"children": [
+						{
+							"name": "Aspect"
+						},
+						{
+							"name": "Product"
+						},
+						{
+							"name": "Picture"
+						},
+						{
+							"name": "Video"
+						},
+						{
+							"name": "File"
+						}
+					]
+				},
+				{
+					"name": "File container",
+					"children": [
+						{
+							"name": "PDF"
+						},
+						{
+							"name": "PSD"
+						},
+						{
+							"name": "Office document"
+						}
+					]
+				},
+				{
+					"name": "Collection",
+					"children": [
+						{
+							"name": "Collection"
+						},
+						{
+							"name": "Catalog"
+						},
+						{
+							"name": "Brand material"
+						}
+					]
+				}
 			]
 		},
 		{
