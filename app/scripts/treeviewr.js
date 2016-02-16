@@ -10,18 +10,27 @@
 		return document.createElementNS(svgNamespace, tag);
 	}
 
+	function setSVGAttributes(el, attributes) {
+		for (var key in attributes) {
+			el.setAttributeNS(null, key, attributes[key]);
+		}
+	}
+
 	function createSvgTextElement(text, x, y) {
 		var MAXIMUM_CHARS_PER_LINE = 14,
     		LINE_HEIGHT = 12;
 
 		var textEl = createSVGElement('text');
-		textEl.setAttributeNS(null, 'style', 'text-anchor: middle;');
-		textEl.setAttributeNS(null, 'font-size', LINE_HEIGHT);
-		textEl.setAttributeNS(null, 'font-family', 'Open Sans');
-		textEl.setAttributeNS(null, 'font-weight', 300);
-		textEl.setAttributeNS(null, 'fill', '#434649');
-		textEl.setAttributeNS(null, 'x', x);
-		textEl.setAttributeNS(null, 'y', y);
+
+		setSVGAttributes(textEl, {
+			'style': 'text-anchor: middle;',
+			'font-size': LINE_HEIGHT,
+			'font-family': 'Open Sans',
+			'font-weight': 300,
+			'fill': '#434649',
+			'x': x,
+			'y': y
+		});
 
 		var originalY = y;
 
@@ -32,8 +41,10 @@
       var testLine = line + words[i] + ' ';
       if (testLine.length + 1 > MAXIMUM_CHARS_PER_LINE) {
         var svgTSpan = createSVGElement('tspan');
-        svgTSpan.setAttributeNS(null, 'x', x);
-        svgTSpan.setAttributeNS(null, 'y', y);
+        setSVGAttributes(svgTSpan, {
+        	'x': x,
+        	'y': y
+        });
         svgTSpan.appendChild(document.createTextNode(line));
         textEl.appendChild(svgTSpan);
 
@@ -45,8 +56,10 @@
   	}
 
   	var svgTSpan = createSVGElement('tspan');
-    svgTSpan.setAttributeNS(null, 'x', x);
-    svgTSpan.setAttributeNS(null, 'y', y);
+    setSVGAttributes(svgTSpan, {
+    	'x': x,
+    	'y': y
+    });
     svgTSpan.appendChild(document.createTextNode(line));
     textEl.appendChild(svgTSpan);
 
@@ -56,7 +69,7 @@
 		for (var i = 0; i < numLines; i++) {
 			var el = lines[i];
 			var elY = el.getAttributeNS(null, 'y');
-			el.setAttributeNS(null, 'y', (elY - ((numLines * LINE_HEIGHT) / 2) + (LINE_HEIGHT * 3 / 4)));
+			setSVGAttributes(el, { 'y': (elY - ((numLines * LINE_HEIGHT) / 2) + (LINE_HEIGHT * 3 / 4)) });
 		}
 
     return textEl;
@@ -72,10 +85,12 @@
 
 	function connect(childEl, parentEl, container) {
 		var path = createSVGElement('path');
-		path.setAttributeNS(null, 'd', 'M0 0');
-		path.setAttributeNS(null, 'stroke', '#97999B');
-		path.setAttributeNS(null, 'fill', 'none');
-		path.setAttributeNS(null, 'stroke-width', '2px');
+		setSVGAttributes(path, {
+			'd': 'M0 0',
+			'stroke': '#97999B',
+			'fill': 'none',
+			'stroke-width': '2px'
+		});
 		container.appendChild(path);
 
 		var startX, startY, endX, endY;
@@ -103,12 +118,14 @@
       arc2 = 0;
     }
 
-    path.setAttributeNS(null, 'd',  'm'  + startX + ' ' + startY +
-                    ' v' + (((endY - startY) / 2) - delta) +
-                    ' a' + delta + ' ' +  delta + ' 0 0 ' + arc1 + ' ' + delta + ' ' + delta +
-                    ' H' + (endX - delta * signum(deltaX)) + 
-                    ' a' + delta + ' ' +  delta + ' 0 0 ' + arc2 + ' ' + delta + ' ' + delta +
-                    ' v' + (((endY - startY) / 2) - delta));
+    setSVGAttributes(path, {
+    	'd': 'm'  + startX + ' ' + startY +
+          ' v' + (((endY - startY) / 2) - delta) +
+          ' a' + delta + ' ' +  delta + ' 0 0 ' + arc1 + ' ' + delta + ' ' + delta +
+          ' H' + (endX - delta * signum(deltaX)) + 
+          ' a' + delta + ' ' +  delta + ' 0 0 ' + arc2 + ' ' + delta + ' ' + delta +
+          ' v' + (((endY - startY) / 2) - delta)
+    });
 	}
 
 	function renderTreeElement(data, container, parent) {
@@ -118,10 +135,12 @@
 
 		if (data.name) {
 			bg = createSVGElement('circle');
-			bg.setAttributeNS(null, 'cx', elementRadius);
-			bg.setAttributeNS(null, 'cy', elementRadius);
-			bg.setAttributeNS(null, 'r',  elementRadius);
-			bg.setAttributeNS(null, 'fill', '#e9ebec');
+			setSVGAttributes(bg, {
+				'cx': elementRadius,
+				'cy': elementRadius,
+				'r': elementRadius,
+				'fill': '#e9ebec'
+			});
 			container.appendChild(bg);
 
 			text = createSvgTextElement(data.name, elementRadius, elementRadius);
@@ -136,21 +155,26 @@
 					childContainer.appendChild(child);
 
 					renderTreeElement(data.children[i], child);
-					child.setAttributeNS(null, 'x', x);
-					child.setAttributeNS(null, 'y', y);
-
+					setSVGAttributes(child, {
+						'x': x,
+						'y': y
+					});
 					// Add connector to parent
 					connect(child, bg, container);
 
 					x = childContainer.getBBox().width + (elementRadius / 2);
 				}
-				childContainer.setAttributeNS(null, 'x', 0);
-				childContainer.setAttributeNS(null, 'y', y + (3 * elementRadius));
+				setSVGAttributes(childContainer, {
+					'x': 0,
+					'y': y + (3 * elementRadius)
+				});
 			}
 		}
 
-		container.setAttributeNS(null, 'x', x);
-		container.setAttributeNS(null, 'y', y);
+		setSVGAttributes(container, {
+			'x': x,
+			'y': y
+		});
 	}
 
 	function renderSvg(data) {
@@ -169,8 +193,7 @@
 				el = createSVGElement('svg');
 				svg.appendChild(el);
 				renderTreeElement(data.nodes[key], el);
-				el.setAttributeNS(null, 'x', x);
-				el.setAttributeNS(null, 'y', y);
+				setSVGAttributes(el, { 'x': x, 'y': y });
 
 				elBBox = el.getBBox();
 				x += elBBox.width + margin;
@@ -182,9 +205,11 @@
 			console.error('Incorrect JSON input: no "nodes" element defined on root level.');
 		}
 
-		svg.setAttribute('width', x);
-		svg.setAttribute('height', maxH + (2 * margin));
-		svg.setAttribute('style', 'vertical-align: top;');
+		setSVGAttributes(svg, {
+			'width': x,
+			'height': maxH + (2 * margin),
+			'style': 'vertical-align: top;'
+		});
 	}
 
 	function jsonLoadDone(data) {
