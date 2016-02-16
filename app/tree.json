@@ -29,13 +29,21 @@
 			"name": "Record",
 			"children": [
 				{
-					"name": "Asset",
+					"name": "Content object",
 					"children": [
+						{
+							"name": "Asset"
+						},
 						{
 							"name": "Aspect"
 						},
 						{
-							"name": "Product"
+							"name": "Product",
+							"children": [
+								{ "name": "Sweater" },
+								{ "name": "T-shirt" },
+								{ "name": "Trousers" }
+							]
 						},
 						{
 							"name": "Picture"

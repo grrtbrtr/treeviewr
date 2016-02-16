@@ -4,24 +4,26 @@
 
 	var svgNamespace = 'http://www.w3.org/2000/svg';
 	var svgContainer;
-	var elementRadius = 50;
+	var elementRadius = 36;
 
 	function createSVGElement(tag) {
 		return document.createElementNS(svgNamespace, tag);
 	}
 
 	function createSvgTextElement(text, x, y) {
-		var MAXIMUM_CHARS_PER_LINE = 16,
-    		LINE_HEIGHT = 16;
+		var MAXIMUM_CHARS_PER_LINE = 14,
+    		LINE_HEIGHT = 12;
 
 		var textEl = createSVGElement('text');
 		textEl.setAttributeNS(null, 'style', 'text-anchor: middle;');
-		textEl.setAttributeNS(null, 'font-size', 12);
+		textEl.setAttributeNS(null, 'font-size', LINE_HEIGHT);
 		textEl.setAttributeNS(null, 'font-family', 'Open Sans');
 		textEl.setAttributeNS(null, 'font-weight', 300);
 		textEl.setAttributeNS(null, 'fill', '#434649');
 		textEl.setAttributeNS(null, 'x', x);
 		textEl.setAttributeNS(null, 'y', y);
+
+		var originalY = y;
 
 		var words = text.split(' ');
     var line = '';
@@ -47,6 +49,15 @@
     svgTSpan.setAttributeNS(null, 'y', y);
     svgTSpan.appendChild(document.createTextNode(line));
     textEl.appendChild(svgTSpan);
+
+    // Vertical centering
+		var lines = textEl.childNodes;
+		var numLines = lines.length;
+		for (var i = 0; i < numLines; i++) {
+			var el = lines[i];
+			var elY = el.getAttributeNS(null, 'y');
+			el.setAttributeNS(null, 'y', (elY - ((numLines * LINE_HEIGHT) / 2) + (LINE_HEIGHT * 3 / 4)));
+		}
 
     return textEl;
 	}
@@ -145,7 +156,7 @@
 	function renderSvg(data) {
 		var svg = createSVGElement('svg');
 		var el;
-		var margin = 50;
+		var margin = elementRadius;
 		svgContainer.appendChild(svg);
 
 		var x = margin;
@@ -162,7 +173,7 @@
 				el.setAttributeNS(null, 'y', y);
 
 				elBBox = el.getBBox();
-				x += elBBox.width + 100;
+				x += elBBox.width + margin;
 				if (elBBox.height > maxH) {
 					maxH = elBBox.height;
 				}
@@ -218,7 +229,7 @@
 		loadTree();
 	}
 
-	document.addEventListener("DOMContentLoaded", function(event) {
+	document.addEventListener('DOMContentLoaded', function(event) {
 		init();
 	});
 })();
