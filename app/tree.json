@@ -45,29 +45,17 @@
 								{ "name": "Trousers" }
 							]
 						},
-						{
-							"name": "Picture"
-						},
-						{
-							"name": "Video"
-						},
-						{
-							"name": "File"
-						}
+						{	"name": "Picture"	},
+						{	"name": "Video" },
+						{	"name": "File" }
 					]
 				},
 				{
 					"name": "Collection",
 					"children": [
-						{
-							"name": "Photoshoot"
-						},
-						{
-							"name": "Catalog"
-						},
-						{
-							"name": "Brand material"
-						}
+						{	"name": "Photoshoot" },
+						{	"name": "Catalog" },
+						{	"name": "Brand material" }
 					]
 				}
 			]

@@ -5,6 +5,7 @@
 	var svgNamespace = 'http://www.w3.org/2000/svg';
 	var svgContainer;
 	var elementRadius = 36;
+	var depth = 1;
 
 	function createSVGElement(tag) {
 		return document.createElementNS(svgNamespace, tag);
@@ -139,7 +140,8 @@
 				'cx': elementRadius,
 				'cy': elementRadius,
 				'r': elementRadius,
-				'fill': '#e9ebec'
+				'fill': '#0092BC',
+				'opacity': 1 / depth
 			});
 			container.appendChild(bg);
 
@@ -150,6 +152,7 @@
 				childContainer = createSVGElement('svg');
 				container.appendChild(childContainer);
 				var child;
+				depth++;
 				for (var i = 0; i < data.children.length; i++) {
 					child = createSVGElement('svg');
 					childContainer.appendChild(child);
@@ -164,6 +167,7 @@
 
 					x = childContainer.getBBox().width + (elementRadius / 2);
 				}
+				depth--;
 				setSVGAttributes(childContainer, {
 					'x': 0,
 					'y': y + (3 * elementRadius)
