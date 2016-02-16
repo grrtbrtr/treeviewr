@@ -2,13 +2,13 @@
 
 (function(){
 
-	var svgNamespace = 'http://www.w3.org/2000/svg';
-	var svgContainer;
-	var elementRadius = 36;
-	var depth = 1;
+	var _elementRadius = 42;
+	var _svgNamespace = 'http://www.w3.org/2000/svg';
+	var _svgContainer;
+	var _depth = 1;
 
 	function createSVGElement(tag) {
-		return document.createElementNS(svgNamespace, tag);
+		return document.createElementNS(_svgNamespace, tag);
 	}
 
 	function setSVGAttributes(el, attributes) {
@@ -17,9 +17,9 @@
 		}
 	}
 
-	function createSvgTextElement(text, x, y) {
+	function createSvgTextElement(text, textColor, x, y) {
 		var MAXIMUM_CHARS_PER_LINE = 14,
-    		LINE_HEIGHT = 12;
+    		LINE_HEIGHT = _elementRadius / 3;
 
 		var textEl = createSVGElement('text');
 
@@ -28,9 +28,7 @@
 			'font-size': LINE_HEIGHT,
 			'font-family': 'Open Sans',
 			'font-weight': 300,
-			'fill': '#434649',
-			'x': x,
-			'y': y
+			'fill': textColor
 		});
 
 		var originalY = y;
@@ -102,10 +100,10 @@
 		childElX = isNaN(childElX) ? 0 : childElX;
 		parentElX = isNaN(parentElX) ? 0 : parentElX;
 
-		var startX = parentElX + elementRadius;
-		var startY = elementRadius * 2;
-		var endX = childElX + elementRadius;
-		var endY = 3 * elementRadius;
+		var startX = parentElX + _elementRadius;
+		var startY = _elementRadius * 2;
+		var endX = childElX + _elementRadius;
+		var endY = 3 * _elementRadius;
 
 		var deltaX = (endX - startX) * 0.3333;
     var deltaY = (endY - startY) * 0.3333;
@@ -137,22 +135,27 @@
 		if (data.name) {
 			bg = createSVGElement('circle');
 			setSVGAttributes(bg, {
-				'cx': elementRadius,
-				'cy': elementRadius,
-				'r': elementRadius,
+				'cx': _elementRadius,
+				'cy': _elementRadius,
+				'r': _elementRadius,
 				'fill': '#0092BC',
-				'opacity': 1 / depth
+				'opacity': 1 / _depth
 			});
 			container.appendChild(bg);
 
-			text = createSvgTextElement(data.name, elementRadius, elementRadius);
+			var textColor = '#434649';
+			if (_depth <= 2) {
+				textColor = '#FFFFFF';
+			}
+
+			text = createSvgTextElement(data.name, textColor, _elementRadius, _elementRadius);
 			container.appendChild(text);
 				
 			if (data.children && data.children.length > 0) {
 				childContainer = createSVGElement('svg');
 				container.appendChild(childContainer);
 				var child;
-				depth++;
+				_depth++;
 				for (var i = 0; i < data.children.length; i++) {
 					child = createSVGElement('svg');
 					childContainer.appendChild(child);
@@ -165,12 +168,12 @@
 					// Add connector to parent
 					connect(child, bg, container);
 
-					x = childContainer.getBBox().width + (elementRadius / 2);
+					x = childContainer.getBBox().width + (_elementRadius / 2);
 				}
-				depth--;
+				_depth--;
 				setSVGAttributes(childContainer, {
 					'x': 0,
-					'y': y + (3 * elementRadius)
+					'y': y + (3 * _elementRadius)
 				});
 			}
 		}
@@ -184,8 +187,8 @@
 	function renderSvg(data) {
 		var svg = createSVGElement('svg');
 		var el;
-		var margin = elementRadius;
-		svgContainer.appendChild(svg);
+		var margin = _elementRadius;
+		_svgContainer.appendChild(svg);
 
 		var x = margin;
 		var y = margin;
@@ -228,8 +231,7 @@
 		var path;
 		var xhr = null;
 
-		svgContainer = document.getElementById('treeviewr');
-		path = svgContainer.getAttribute('data-file');
+		path = _svgContainer.getAttribute('data-file');
 
     if (window.ActiveXObject) {
     	xhr = new ActiveXObject('Microsoft.XMLHTTP');
@@ -255,6 +257,9 @@
 	}
 
 	function init() {
+		_svgContainer = document.getElementById('treeviewr');
+		_elementRadius = parseInt(_svgContainer.getAttribute('data-element-radius'), 10) || _elementRadius;
+
 		loadTree();
 	}
 

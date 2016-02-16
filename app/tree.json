@@ -6,23 +6,13 @@
 				{
 					"name": "Project",
 					"children": [
-						{
-							"name": "Campaign"
-						},
-						{
-							"name": "Product launch"
-						},
-						{
-							"name": "Creative creation"
-						}
+						{ "name": "Campaign" },
+						{ "name": "Product launch" },
+						{ "name": "Creative creation" }
 					]
 				},
-				{
-					"name": "Content creation"
-				},
-				{
-					"name": "Content usage"
-				}
+				{ "name": "Content creation" },
+				{ "name": "Content usage" }
 			]
 		},
 		{
@@ -31,12 +21,8 @@
 				{
 					"name": "Content object",
 					"children": [
-						{
-							"name": "Asset"
-						},
-						{
-							"name": "Aspect"
-						},
+						{	"name": "Asset"	},
+						{	"name": "Aspect" },
 						{
 							"name": "Product",
 							"children": [
@@ -63,15 +49,9 @@
 		{
 			"name": "File container",
 			"children": [
-				{
-					"name": "PDF"
-				},
-				{
-					"name": "PSD"
-				},
-				{
-					"name": "Office document"
-				}
+				{ "name": "PDF"	},
+				{	"name": "PSD"	},
+				{	"name": "Office document"	}
 			]
 		},
 		{
