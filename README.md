@@ -1,2 +1,2 @@
 # treeviewr
-Render simple, beautiful treeviews from JSON data using JavaScript.
+Render simple treeviews from JSON data using JavaScript.
